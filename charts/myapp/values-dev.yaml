@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: nginx
-  tag: "latest" # ה-GitHub Action יחליף את זה
+  tag: "build-1"
 service:
   type: ClusterIP
   port: 80
