@@ -1,0 +1,23 @@
+name: Update Nginx Tag
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  update-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.HELM_REPO_TOKEN }} # ה-Token שיצרת קודם
+
+      - name: Change Image Tag
+        run: |
+          # עדכון ה-Tag לערך אקראי או למספר ה-Run כדי להראות שינוי
+          sed -i "s/tag: .*/tag: \"build-${{ github.run_number }}\"/" charts/myapp/values-dev.yaml
+          
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add charts/myapp/values-dev.yaml
+          git commit -m "chore: auto-update nginx tag"
+          git push
