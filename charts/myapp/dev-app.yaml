@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: moti-practice-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/moti-art/moti-gitops-practice.git'
+    targetRevision: HEAD
+    path: charts/myapp # הנתיב המדויק לתיקייה עם ה-Chart.yaml
+    helm:
+      valueFiles:
+        - values-dev.yaml # הקובץ שיצרת עם ה-Nginx
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
