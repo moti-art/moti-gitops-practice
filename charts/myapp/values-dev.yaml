@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: nginx
-  tag: "build-33"
+  tag: "build-34"
 service:
   type: ClusterIP
   port: 80
